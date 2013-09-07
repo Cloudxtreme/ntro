@@ -1,1 +1,6 @@
 *.pyc
+pimpin.db
+pimpin.sublime-project
+pimpin.sublime-workspace
+*.iml
+.idea
