@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load staticfiles %}
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>PIMP</title>
- 
+
+    <link rel="stylesheet" href="{% static "css/master.css" %}" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/main.css" type="text/css" />
  
     <!--[if IE]>
@@ -14,8 +15,6 @@
  	      <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
   </head>
   <body id="index" class="home">
-    {% block content %}
-
-    {% endblock %}
+    <h1>PIMP</h1>
   </body>
 </html>
