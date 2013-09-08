@@ -75,6 +75,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
+    'tastypie',
     'connection',
 )
 
@@ -101,3 +102,6 @@ LOGGING = {
         },
     }
 }
+
+# Tastypie settings
+TASTYPIE_DEFAULT_FORMATS = ['json',]

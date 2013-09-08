@@ -1,11 +1,36 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import hashlib
+import os
+
+def upload_to_mugshot(instance, filename):
+    """
+    Uploads a mugshot.
+    
+    """
+    if not getattr(instance, 'image', None):
+        return 'drops/{filename}'.format(filename=filename)
+
+    hasher = hashlib.md5()
+    for chunk in instance.image.chunks():
+        hasher.update(chunk)
+    hash = hasher.hexdigest()
+    base, ext = os.path.splitext(filename)
+
+    return 'mugshots/{hash}{ext}'.format(hash=hash,
+                                         ext=ext)
+
+
+
 class Person(models.Model):
     """ Person which is requested """
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     score = models.PositiveIntegerField()
+    mugshot = models.ImageField(upload_to=upload_to_mugshot,
+                                null=True,
+                                blank=True)
 
     # Social connections
     twitter_handle = models.CharField(blank=True,
