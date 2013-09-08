@@ -74,6 +74,8 @@ class UserResource(ModelResource):
         allowed_methods = ['get']
         detail_uri_name = 'username'
         excludes = ['id',]
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
 
     def prepend_urls(self):
         return [
@@ -123,7 +125,7 @@ class ConnectionResource(ModelResource):
     
     class Meta:
         queryset = Connection.objects.all()
-        allowed_methods = ['get', 'post', 'put']
+        allowed_methods = ['get', 'post', 'patch', 'put']
         authentication = AuthenticatedPostAuthentication()
         authorization = Authorization()
         validation = ConnectionValidation()
