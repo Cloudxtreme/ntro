@@ -12,3 +12,5 @@ django-social-auth
 # Score calculation
 pyklout
 python-twitter
+
+requests

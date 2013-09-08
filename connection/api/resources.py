@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.conf.urls import url
+from django.conf import settings
 
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation
@@ -8,6 +9,8 @@ from tastypie import fields
 
 from connection.models import Connection, Person
 
+import twitter
+
 class PersonValidation(Validation):
     def is_valid(self, bundle, request=None):
         if not bundle.data:
@@ -15,6 +18,18 @@ class PersonValidation(Validation):
 
         if 'twitter_handle' not in bundle.data:
             return {'__all__': 'At least supply us with the twitter handle.'}
+
+        twitter_handle = bundle.data['twitter_handle']
+
+        api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
+                          consumer_secret=settings.API_TWITTER_SECRET,
+                          access_token_key=settings.API_TWITTER_TOKEN_KEY,
+                          access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
+
+        try:
+            api.GetUser(screen_name=twitter_handle)
+        except:
+            return {'__all__': 'User with this Twitter user does not exist.'}
 
         return {}
 
