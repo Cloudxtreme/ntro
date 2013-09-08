@@ -6,7 +6,7 @@ import math
 def get_klout_score(username):
     """ Get klout score based on twitter handle """
     api   = Klout(settings.API_KLOUT_KEY)
-    data  = api.identity(username, 'twitter')
+    data  = api.identity(str(username), 'twitter')
     score = api.score(data['id'])
     return score['score']
 
@@ -14,10 +14,10 @@ def get_klout_score(username):
 def get_twitter_user(username):
     """ Get twitter user (properties like name, profile_image_url
         and the amazing _profile_background_color) """
-    api   = twitter.Api(consumer_key=settings.API_TWITTER_KEY, \
-                        consumer_secret=settings.API_TWITTER_SECRET, \
-                        access_token_key=settings.API_TWITTER_TOKEN_KEY, \
-                        access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
+    api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
+                      consumer_secret=settings.API_TWITTER_SECRET,
+                      access_token_key=settings.API_TWITTER_TOKEN_KEY,
+                      access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
     try:
         return api.GetUser(screen_name=username)
     except:

@@ -102,5 +102,5 @@ def get_twitter_info_handler(sender, instance, created, *args, **kwargs):
     if created:
         get_twitter_info(instance)
 
-models.signals.post_save.connect(calculate_price_handler, sender=Connection)
 models.signals.post_save.connect(get_twitter_info_handler, sender=Person)
+models.signals.post_save.connect(calculate_price_handler, sender=Connection)
