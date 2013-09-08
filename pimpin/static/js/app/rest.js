@@ -18,9 +18,13 @@ angular
             } else {
                 newResponse = data;
             }
+            if (!angular.isObject(newResponse)) {
+                newResponse = {};
+            }
             newResponse.statusCode = function() {
                 return response.status;
             };
+            newResponse.headers = response.headers;
             return newResponse;
         });
     });

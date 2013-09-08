@@ -14,4 +14,9 @@ python-linkedin
 pyklout
 python-twitter
 
+# Requests
 requests
+
+# Worker
+django-celery==3.0.23
+

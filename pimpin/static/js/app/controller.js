@@ -9,15 +9,16 @@ angular
             .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
             .otherwise({redirectTo: "/"});
     })
-    .controller("MakeConnectionCtrl", function ($scope, $location) {
+    .controller("MakeConnectionCtrl", function ($scope, Restangular) {
         $scope.isLoggedIn = pimp.user !== undefined;
 
         $scope.loginUrl = function() {
             return '#/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
         }
+
+        $scope.topUsers = Restangular.all("user").getList();
     })
     .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams) {
-        debugger;
         $scope.connection = {
             twitterHandle: $routeParams.twitterHandle,
             pitch: null
@@ -56,14 +57,21 @@ angular
 
         $scope.requestIntroduction = function () {
             $scope.step = "requestIntroduction";
-            Restangular.all("connection").post({person: "/person/" + $scope.connection.twitterHandle + "/"})
+            Restangular.all("connection").post({person: "/api/v1/person/" + $scope.connection.twitterHandle + "/"})
                 .then(function (connection) {
-                    $scope.updateConnection(connection);
+                    if (connection.statusCode() === 201) {
+                        var absResourcePath = connection.headers().location;
+                        var items = absResourcePath.split("/");
+                        var connectionId = items[items.length - 2];
+                        $scope.updateConnection(connectionId)
+                    } else {
+                        $scope.updateConnection(connection.id)
+                    }
                 });
         };
 
-        $scope.updateConnection = function (connection) {
-            Restangular.one("connection", connection.id).get().
+        $scope.updateConnection = function (connectionId) {
+            Restangular.one("connection", connectionId).get().
                 then(function (connection) {
                     if (connection.price && connection.price !== null) {
                         $scope.connection = connection;
@@ -75,7 +83,13 @@ angular
                 });
         };
 
-        $scope.topUsers = Restangular.all("user").getList();
+        $scope.createIntro = function() {
+            $scope.connection.put();
+        };
+
+        if ($routeParams.twitterHandle) {
+            $scope.lookupPerson();
+        }
     })
     .controller("ConnectionsCtrl", function ($scope, Restangular) {
         $scope.queryString = null;

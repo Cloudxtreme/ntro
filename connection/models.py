@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 from tastypie.models import create_api_key
+
+from connection.tasks import calculate_score, get_twitter_info
 
 import hashlib
 import os
@@ -86,3 +89,14 @@ class Connection(models.Model):
 
 # Create an API key
 models.signals.post_save.connect(create_api_key, sender=User)
+
+def calculate_score_handler(sender, instance, created, *args, **kwargs):
+    if created:
+        calculate_score.delay(instance)
+
+def get_twitter_info_handler(sender, instance, created, *args, **kwargs):
+    if created:
+        get_twitter_info.delay(instance)
+
+models.signals.post_save.connect(calculate_score_handler, sender=Connection)
+models.signals.post_save.connect(get_twitter_info_handler, sender=Person)

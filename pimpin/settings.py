@@ -1,4 +1,8 @@
 import os
+import djcelery
+
+djcelery.setup_loader()
+
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
@@ -82,6 +86,8 @@ INSTALLED_APPS = (
     #'south',
     'tastypie',
     'social_auth',
+    'djcelery',
+    'kombu.transport.django',
     
     'connection',
 )
@@ -129,3 +135,6 @@ TASTYPIE_AUTH_USER_PARAM = 'api_user'
 TWITTER_CONSUMER_KEY = 'JrWzRSTEwd47AR0QvJCmw'
 TWITTER_CONSUMER_SECRET = 'bVDtYS0dAaoM0z52jA0HU8upWXQjDl4fqJx0yiLnT4'
 LOGIN_REDIRECT_URL = '/'
+
+# Celery
+BROKER_URL = 'django://'
