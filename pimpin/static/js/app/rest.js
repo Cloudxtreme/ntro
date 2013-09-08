@@ -1,11 +1,15 @@
 angular
     .module("pimp.api", ["restangular", "pimp.config"])
-    .config(function(RestangularProvider) {
+    .config(function (RestangularProvider) {
         RestangularProvider.setBaseUrl("/api/v1");
         RestangularProvider.setRequestSuffix("/");
-        RestangularProvider.setDefaultRequestParams({api_key: pimp.user.api_key});
+        if (pimp.user) {
+            RestangularProvider.setDefaultRequestParams({
+                api_key: pimp.user.api_key
+            });
+        }
 
-        RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
+        RestangularProvider.setResponseExtractor(function (response, operation, what, url) {
             if (operation === "getList") {
                 var newResponse;
                 newResponse = response.objects;
