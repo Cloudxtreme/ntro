@@ -1,0 +1,33 @@
+<div class="searchBox">
+    <div ng-show="step == 'enterName'">
+        Introduce me to <input type="text" id="connections-query" ng-model="connection.twitterHandle"/>
+        <div><a ng-click="lookupPerson()">Lookup Person</a></div>
+
+        <div ng-show="lookupInProgress">Looking up</div>
+        <div ng-show="person != undefined">{{ person }}</div>
+        <div ng-show="error != undefined">{{ error }}</div>
+
+        <div ng-show="step == lookupSuccessful">
+
+        </div>
+    </div>
+
+
+    <div ng-show="step == 'createConnection'">
+        A connection would cost you:
+        Pitch: <textarea ng-model="connection.pitch"></textarea>
+        <div><a ng-click="next()">Confirm</a></div>
+    </div>
+
+    <div class="top-introductions">
+        <div class="title">Top Introducers</div>
+        <div class="user" ng-repeat="user in topUsers">
+            <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
+            <div class="username">
+                <a ng-href="/user/{{ user.id }}">
+                    {{ user.username }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
