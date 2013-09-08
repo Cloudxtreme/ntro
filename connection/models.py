@@ -9,19 +9,14 @@ def upload_to_mugshot(instance, filename):
     Uploads a mugshot.
     
     """
-    if not getattr(instance, 'image', None):
-        return 'drops/{filename}'.format(filename=filename)
-
     hasher = hashlib.md5()
-    for chunk in instance.image.chunks():
+    for chunk in instance.mugshot.chunks():
         hasher.update(chunk)
     hash = hasher.hexdigest()
     base, ext = os.path.splitext(filename)
 
     return 'mugshots/{hash}{ext}'.format(hash=hash,
                                          ext=ext)
-
-
 
 class Person(models.Model):
     """ Person which is requested """

@@ -17,6 +17,8 @@ v1_api.register(ConnectionResource())
 v1_api.register(PersonResource())
 
 urlpatterns = patterns('',
+    url(r'', include('social_auth.urls')),
+    url('^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(v1_api.urls)),
     url(r'^',

@@ -64,6 +64,11 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, '../templates'),
 )
 
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +81,8 @@ INSTALLED_APPS = (
 
     'south',
     'tastypie',
+    'social_auth',
+    
     'connection',
 )
 
@@ -105,3 +112,7 @@ LOGGING = {
 
 # Tastypie settings
 TASTYPIE_DEFAULT_FORMATS = ['json',]
+
+# Social login
+TWITTER_CONSUMER_KEY = 'JrWzRSTEwd47AR0QvJCmw'
+TWITTER_CONSUMER_SECRET = 'bVDtYS0dAaoM0z52jA0HU8upWXQjDl4fqJx0yiLnT4'
