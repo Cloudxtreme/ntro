@@ -7,14 +7,13 @@
         <div ng-show="person != undefined">{{ person }}</div>
         <div ng-show="error != undefined">{{ error }}</div>
 
-        <div ng-show="step == lookupSuccessful">
-
+        <div ng-show="step == 'lookupSuccessful'">
+            <a ng-click="requestIntroduction()">What would an intro cost?</a>
         </div>
     </div>
 
-
-    <div ng-show="step == 'createConnection'">
-        A connection would cost you:
+    <div ng-show="step == 'requestIntroduction'">
+        A connection would cost you: {{ connection.price }}
         Pitch: <textarea ng-model="connection.pitch"></textarea>
         <div><a ng-click="next()">Confirm</a></div>
     </div>
