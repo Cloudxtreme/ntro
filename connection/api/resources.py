@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation
@@ -9,6 +10,7 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.resources import ALL
 
 from connection.models import Connection, Person
 
@@ -114,6 +116,9 @@ class ConnectionResource(ModelResource):
         authentication = AuthenticatedPostAuthentication()
         authorization = Authorization()
         validation = ConnectionValidation()
+        filtering = {
+            'status': ALL,
+        }
     
     def obj_create(self, bundle, **kwargs):
         bundle.data['requested_by'] = u'/api/v1/user/%s/' % bundle.request.user
@@ -128,3 +133,18 @@ class ConnectionResource(ModelResource):
         
         return super(ConnectionResource, self).obj_create(bundle,
                                                           **kwargs)
+
+class YourConnectionResource(ModelResource):
+    """ Displaying all the connections """
+    person = fields.ForeignKey(PersonResource, 'person', full=True, blank=True)
+    requested_by = fields.ForeignKey(UserResource, 'requested_by', blank=True, full=True)
+    responded_by = fields.ForeignKey(UserResource, 'responded_by', blank=True, null=True)
+    
+    class Meta:
+        queryset = Connection.objects.all()
+        allowed_methods = ['get', 'post']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+
+    def apply_authorization_limits(self, request, object_list):
+        return object_list.filter(Q(requested_by=request.user) | Q(responded_by=request.user))
