@@ -97,7 +97,7 @@ angular
     })
     .controller("ProfileCtrl", function ($scope, Restangular) {
         $scope.user = Restangular.one("user", pimp.user.username);
-        $scope.connections = Restangular.all("connection").getList();
+        $scope.myConnections = Restangular.all("yourconnection").getList();
     })
     .controller("NavCtrl", function ($scope, $location) {
         $scope.isLoggedIn = pimp.user !== undefined;
