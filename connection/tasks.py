@@ -1,12 +1,17 @@
 from celery import task
+from pimpin.utils import *
 
 @task()
 def get_twitter_info(person):
-    person.score = 100
+    scores = get_scores(person.twitter_handle)
+    person.score_klout = scores['klout']
+    person.score_twitter = scores['twitter']
     person.save()
 
 @task()
-def calculate_score(instance):
+def calculate_price(connection):
     """ Calculates the score """
-    instance.price= 100
+    buyer = connection.requested_by.username
+    victim = connection.person.twitter_handle
+    instance.price = get_price(buyer, victim)
     instance.save()
