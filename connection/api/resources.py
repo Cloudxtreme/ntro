@@ -89,11 +89,13 @@ class ConnectionValidation(Validation):
         if 'person' not in bundle.data:
             return {'__all__': 'At least supply us with the person.'}
 
-        person = bundle.data['person'].split('/')[-2]
-        try:
-            Person.objects.get(twitter_handle=person)
-        except Person.DoesNotExist:
-            return {'__all__': 'Person does not exist in our database.'}
+        if request.method == "POST":
+            person = bundle.data['person'].split('/')[-2]
+
+            try:
+                Person.objects.get(twitter_handle=person)
+            except Person.DoesNotExist:
+                return {'__all__': 'Person does not exist in our database.'}
         return {}
 
 class AuthenticatedPostAuthentication(ApiKeyAuthentication):
