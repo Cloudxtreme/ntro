@@ -3,20 +3,21 @@ angular
     .config(function ($routeProvider) {
         var partialsUrl = "/static/partials/"
         $routeProvider
-            .when("/", {templateUrl: partialsUrl + "makeConnection.html", controller: "MakeConnectionCtrl"})
-            .when("/connection/make", {templateUrl: partialsUrl + "makeConnection.html", controller: "MakeConnectionCtrl"})
+            .when("/", {templateUrl: partialsUrl + "home.html", controller: "MakeConnectionCtrl"})
             .when("/connection/pitch/:twitterHandle", {templateUrl: partialsUrl + "writePitch.html", controller: "WritePitchCtrl"})
             .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
             .otherwise({redirectTo: "/"});
     })
-    .controller("MakeConnectionCtrl", function ($scope, Restangular) {
+    .controller("MakeConnectionCtrl", function ($scope) {
         $scope.isLoggedIn = pimp.user !== undefined;
 
         $scope.loginUrl = function() {
-            return '#/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
-        }
+            return '/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
+        };
 
-        $scope.topUsers = Restangular.all("user").getList();
+        $scope.connectUrl = function() {
+            return "#/connection/pitch/" + $scope.twitterHandle;
+        };
     })
     .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams) {
         $scope.connection = {

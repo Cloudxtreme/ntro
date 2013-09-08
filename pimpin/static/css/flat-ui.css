@@ -200,7 +200,7 @@ you can use the generic selector below, but it's slower:
   line-height: 100px;
 }
 .demo-logo .logo {
-  background: url(../images/demo/ntro-logo.png) center 0 no-repeat;
+  background: url(../images/ntro-logo.png) center 0 no-repeat;
   height: 106px;
   margin: 0 auto 26px;
   overflow: hidden;
@@ -3895,7 +3895,7 @@ header{
 .navbar .logo{
   width: 140px;
   height: 37px;
-  background: url(../images/ntro/ntro-logo.png) center 0 no-repeat;
+  background: url(../images/ntro-logo.png) center 0 no-repeat;
   margin-top: 15px;
 }
 
