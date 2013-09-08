@@ -6,6 +6,9 @@ def get_twitter_info(person):
     person.klout_score= int(scores['klout'])
     person.tweet_score = int(scores['twitter'])
     person.score = person.klout_score + person.twitter_score
+    user = get_twitter_user(person.twitter_handle)
+    person.first_name = user.name
+    # TODO: use user.profile_image_url to upload image
     person.save()
 
 def calculate_price(connection):
