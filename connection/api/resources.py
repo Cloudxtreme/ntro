@@ -112,7 +112,7 @@ class ConnectionResource(ModelResource):
     
     class Meta:
         queryset = Connection.objects.all()
-        allowed_methods = ['get', 'post']
+        allowed_methods = ['get', 'post', 'put']
         authentication = AuthenticatedPostAuthentication()
         authorization = Authorization()
         validation = ConnectionValidation()
