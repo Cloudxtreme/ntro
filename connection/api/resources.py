@@ -7,7 +7,7 @@ from django.db.models import Q
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation
 from tastypie.authorization import Authorization
-from tastypie.authentication import ApiKeyAuthentication
+from tastypie.authentication import ApiKeyAuthentication, Authentication
 from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.resources import ALL
@@ -47,6 +47,7 @@ class PersonResource(ModelResource):
         excludes = ['id']
         validation = PersonValidation()
         authorization = Authorization()
+        authentictation = Authentication()
         excludes = ['klout_score', 'tweet_score']
 
     def prepend_urls(self):
@@ -74,7 +75,7 @@ class UserResource(ModelResource):
         allowed_methods = ['get']
         detail_uri_name = 'username'
         excludes = ['id',]
-        authentication = ApiKeyAuthentication()
+        authentication = Authentication()
         authorization = Authorization()
 
     def prepend_urls(self):
@@ -126,7 +127,7 @@ class ConnectionResource(ModelResource):
     class Meta:
         queryset = Connection.objects.all()
         allowed_methods = ['get', 'post', 'patch', 'put']
-        authentication = AuthenticatedPostAuthentication()
+        authentication = Authentication()
         authorization = Authorization()
         validation = ConnectionValidation()
         filtering = {
@@ -156,8 +157,6 @@ class YourConnectionResource(ModelResource):
     class Meta:
         queryset = Connection.objects.all()
         allowed_methods = ['get', 'post']
-        authentication = ApiKeyAuthentication()
+        authentication = Authentication()
         authorization = Authorization()
-
-    def apply_authorization_limits(self, request, object_list):
-        return object_list.filter(Q(requested_by=request.user) | Q(responded_by=request.user))
+        
