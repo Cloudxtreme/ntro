@@ -1,5 +1,5 @@
 <div class="searchBox">
-    <div ng-show="step == 'enterName'">
+    <div ng-show="step == 'enterName' || step == 'lookupSuccessful'">
         Introduce me to <input type="text" id="connections-query" ng-model="connection.twitterHandle"/>
         <div><a ng-click="lookupPerson()">Lookup Person</a></div>
 

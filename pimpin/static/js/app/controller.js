@@ -56,7 +56,7 @@ angular
 
         $scope.requestIntroduction = function () {
             $scope.step = "requestIntroduction";
-            Restangular.all("connection").post({person: $scope.connection.twitterHandle})
+            Restangular.all("connection").post({person: "/person/" + $scope.connection.twitterHandle + "/"})
                 .then(function (connection) {
                     $scope.updateConnection(connection);
                 });
