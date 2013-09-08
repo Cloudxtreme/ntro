@@ -5,13 +5,20 @@ angular
         $routeProvider
             .when("/", {templateUrl: partialsUrl + "home.html", controller: "MakeConnectionCtrl"})
             .when("/connection/pitch/:twitterHandle", {templateUrl: partialsUrl + "writePitch.html", controller: "WritePitchCtrl"})
-            .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
+            .when("/profile", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
             .when("/profile", {templateUrl: partialsUrl + "profile.html", controller: "ProfileCtrl"})
             .otherwise({redirectTo: "/"});
     })
-    .controller("MakeConnectionCtrl", function ($scope) {
+    .controller("MakeConnectionCtrl", function ($scope, $location) {
         $scope.isLoggedIn = pimp.user !== undefined;
         $scope.twitterHandle = null;
+
+        $scope.doSubmit = function() {
+            if ($scope.isLoggedIn) {
+                $location.path("/connection/pitch/" + $scope.normalizedTwitterHandle());
+            } else {
+            }
+        };
 
         $scope.normalizedTwitterHandle = function() {
             if ($scope.twitterHandle && $scope.twitterHandle !== null && $scope.twitterHandle.match(/^@.*/)) {
