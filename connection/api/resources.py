@@ -6,6 +6,8 @@ from tastypie.resources import ModelResource
 from tastypie.validation import Validation
 from tastypie.authorization import Authorization
 from tastypie import fields
+from tastypie.http import HttpSeeOther
+from tastypie.exceptions import ImmediateHttpResponse
 
 from connection.models import Connection, Person
 
@@ -46,6 +48,17 @@ class PersonResource(ModelResource):
         return [
             url(r"^(?P<resource_name>%s)/(?P<twitter_handle>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
         ]
+
+    def obj_create(self, bundle, **kwargs):
+        twitter_handle = bundle.data['twitter_handle']
+        try:
+            Person.objects.get(twitter_handle=twitter_handle)
+        except Person.DoesNotExist:
+            pass
+        else:
+            raise ImmediateHttpResponse(HttpSeeOther("Person already exists"))
+        return super(PersonResource, self).obj_create(bundle,
+                                                      **kwargs)
 
 class UserResource(ModelResource):
     """ Displaying all the connections """
