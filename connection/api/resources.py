@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User
 from django.conf.urls import url
-from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.db.models import Q
 
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation

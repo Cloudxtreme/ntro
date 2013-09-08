@@ -29,7 +29,7 @@ def get_twitter_user(username):
     except UserSocialAuth.DoesNotExist:
         oauth_token = settings.API_TWITTER_TOKEN_KEY
         oauth_token_secret = settings.API_TWITTER_TOKEN_SECRET
-    
+
     api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
                       consumer_secret=settings.API_TWITTER_SECRET,
                       access_token_key=oauth_token,
@@ -37,7 +37,11 @@ def get_twitter_user(username):
     try:
         return api.GetUser(screen_name=username)
     except:
-        return None
+        api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
+                          consumer_secret=settings.API_TWITTER_SECRET,
+                          access_token_key=settings.API_TWITTER_TOKEN_KEY,
+                          access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
+        return api.GetUser(screen_name=username)
 
 def get_twitter_followers(username):
     """ Get number of twitter followers """
