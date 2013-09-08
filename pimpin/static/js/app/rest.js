@@ -21,7 +21,7 @@ angular
             if (!angular.isObject(newResponse)) {
                 newResponse = {};
             }
-            newResponse.statusCode = function() {
+            newResponse.statusCode = function () {
                 return response.status;
             };
             newResponse.headers = response.headers;
