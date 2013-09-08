@@ -2,7 +2,7 @@
     <div class="container">
       <div class="demo-headline">
         <div class="profile-avatar">
-          <img src="https://sphotos-a-sea.xx.fbcdn.net/hphotos-ash3/941290_10151421539652876_1392759574_n.jpg" />
+          <img ng-src="{{ user.mugshot }}" />
         </div>
         <div class="profile-name">
           <h1>
@@ -29,7 +29,7 @@
   <h2>Activity</h2>
   <div class="intro row" ng-repeat="connection in myConnections">
     <div class="intro-requester span2">
-      <img src="https://sphotos-a-sea.xx.fbcdn.net/hphotos-ash3/941290_10151421539652876_1392759574_n.jpg" />
+      <img ng-src="{{ connection.requested_by.mugshot }}"/>
       <div class="intro-name">{{ connection.requested_by.first_name }} <br /> {{ connection.requested_by.last_name }}</div>
     </div>
     <div class="intro-target span2  ">

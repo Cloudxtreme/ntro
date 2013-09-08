@@ -26,6 +26,7 @@ angular
             pitch: null
         };
 
+        $scope.user = Restangular.one("user", pimp.user.username).get();
         $scope.lookupInProgress = false;
         $scope.person = null;
 
@@ -84,6 +85,7 @@ angular
         };
 
         $scope.createIntro = function () {
+            $scope.connection.title = "testtt";
             $scope.connection.put();
         };
 
@@ -96,7 +98,7 @@ angular
         $scope.connections = Restangular.all("connection").getList();
     })
     .controller("ProfileCtrl", function ($scope, Restangular) {
-        $scope.user = Restangular.one("user", pimp.user.username);
+        $scope.user = Restangular.one("user", pimp.user.username).get();
         $scope.myConnections = Restangular.all("yourconnection").getList();
     })
     .controller("NavCtrl", function ($scope, $location) {
