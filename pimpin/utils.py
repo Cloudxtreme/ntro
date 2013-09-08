@@ -29,15 +29,20 @@ def get_twitter_followers(username):
     return user.followers_count
 
 
+def get_scores(username):
+    scores = dict()
+    scores['klout']   = get_klout_score(username)
+    scores['twitter'] = get_twitter_followers(username)
+    return scores
+    
+
 def get_price(buyer, victim):
     """ Determine price of introduction using patented formula """
-    buyer_klout = get_klout_score(buyer)
-    buyer_tweet = get_twitter_followers(buyer)
-    victim_klout = get_klout_score(victim)
-    victim_tweet = get_twitter_followers(victim)
+    buyer_scores = get_scores(buyer)
+    victim_scores = get_scores(victim)
     startup_price = 10
     klout_rate    = 2
     tweet_rate    = 1000
     return startup_price \
-           + klout_rate * max(0, victim_klout - buyer_klout) \
-           + tweet_rate * max(0, (math.log(victim_tweet, 10) - math.log(buyer_tweet, 10)) ** 1.4)
+           + klout_rate * max(0, victim_scores['klout'] - buyer_scores['klout']) \
+           + tweet_rate * max(0, (math.log(victim_scores['twitter'], 10) - math.log(buyer_scores['twitter'], 10)) ** 1.4)
