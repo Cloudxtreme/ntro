@@ -21,16 +21,16 @@ def upload_to_mugshot(instance, filename):
 
 class Person(models.Model):
     """ Person which is requested """
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    score = models.PositiveIntegerField()
-    mugshot = models.ImageField(upload_to=upload_to_mugshot,
-                                null=True,
-                                blank=True)
-
     # Social connections
     twitter_handle = models.CharField(blank=True,
                                       max_length=255)
+
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
+    score = models.PositiveIntegerField(blank=True, null=True)
+    mugshot = models.ImageField(upload_to=upload_to_mugshot,
+                                null=True,
+                                blank=True)
 
     # meta fields
     created_at = models.DateTimeField(auto_now_add=True)

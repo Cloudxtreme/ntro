@@ -79,7 +79,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    'south',
+    #'south',
     'tastypie',
     'social_auth',
     

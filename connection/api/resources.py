@@ -2,10 +2,36 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 
 from tastypie.resources import ModelResource
-
+from tastypie.validation import Validation
+from tastypie.authorization import Authorization
 from tastypie import fields
 
 from connection.models import Connection, Person
+
+class PersonValidation(Validation):
+    def is_valid(self, bundle, request=None):
+        if not bundle.data:
+            return {'__all__': 'At least supply us with the twitter handle.'}
+
+        if 'twitter_handle' not in bundle.data:
+            return {'__all__': 'At least supply us with the twitter handle.'}
+
+        return {}
+
+class PersonResource(ModelResource):
+    """ Displaying all the Persons """        
+    class Meta:
+        queryset = Person.objects.all()
+        allowed_methods = ['get', 'post']
+        detail_uri_name = 'twitter_handle'
+        excludes = ['id']
+        validation = PersonValidation()
+        authorization = Authorization()
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/(?P<twitter_handle>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+        ]
 
 class UserResource(ModelResource):
     """ Displaying all the connections """
@@ -19,19 +45,6 @@ class UserResource(ModelResource):
     def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/(?P<username>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
-        ]
-
-class PersonResource(ModelResource):
-    """ Displaying all the Persons """        
-    class Meta:
-        queryset = Person.objects.all()
-        allowed_methods = ['get']
-        detail_uri_name = 'twitter_handle'
-        excludes = ['id',]
-
-    def prepend_urls(self):
-        return [
-            url(r"^(?P<resource_name>%s)/(?P<twitter_handle>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
         ]
         
 class ConnectionResource(ModelResource):
