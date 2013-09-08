@@ -35,11 +35,11 @@
             <textarea rows="4" class="span8" placeholder="Pitch" ng-model="connection.pitch"></textarea>
         </form>
         <form class="bs-docs-example form-inline">
-            <textarea rows="1" class="span8" placeholder="Link" ng-model="connection.link"></textarea>
+            <textarea rows="1" class="span8" placeholder="Link" ng-model="connection.uri"></textarea>
         </form>
         <div class="row2">
             <div class="span3" style="margin: 0 auto; float: none;">
-                <a class="btn btn-large btn-block btn-primary" href="#fakelink">Pitch for ${{ connection.price }}</a>
+                <a class="btn btn-large btn-block btn-primary" ng-click="createIntro()">Pitch for ${{ connection.price }}</a>
             </div>
         </div>
     </div>
