@@ -11,15 +11,22 @@ def get_klout_score(username):
     return score['score']
 
 
-def get_twitter_followers(username):
-    """ Get number of twitter followers """
+def get_twitter_user(username):
+    """ Get twitter user (properties like name, profile_image_url
+        and the amazing _profile_background_color) """
     api   = twitter.Api(consumer_key=settings.API_TWITTER_KEY, \
                         consumer_secret=settings.API_TWITTER_SECRET, \
                         access_token_key=settings.API_TWITTER_TOKEN_KEY, \
                         access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
-    
-    user = api.GetUser(screen_name=username)
-    return user.GetFollowersCount()
+    try:
+        return api.GetUser(screen_name=username)
+    except:
+        return None
+
+def get_twitter_followers(username):
+    """ Get number of twitter followers """
+    user = get_twitter_user(username)
+    return user.followers_count
 
 
 def get_price(buyer, victim):
