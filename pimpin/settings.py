@@ -75,6 +75,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
+    'tastypie',
     'connection',
 )
 
@@ -110,7 +111,9 @@ API_LINKEDIN_KEY    = "qjcbymj6d313"
 API_LINKEDIN_SECRET = "zGdC45PkN29wa91X"
 API_TWITTER_KEY     = "2omOsYngfIrCyJMW6H2cw"
 API_TWITTER_SECRET  = "z1pXCdqzM1rsWoMTSdpjfIK6cUT14cWx7NQB2FxqE"
-API_TWITTER_TOKEN_KEY = "472339266-ERznGJPxwwz0FZHXWrI3Rs7jL2gi73Ftygub2s8s"
+API_TWITTER_TOKEN_KEY    = "472339266-ERznGJPxwwz0FZHXWrI3Rs7jL2gi73Ftygub2s8s"
 API_TWITTER_TOKEN_SECRET = "gMy6pihh4HrnpPlMoCp0HVess8vGeWt0fudVnevx44"
 
 
+# Tastypie settings
+TASTYPIE_DEFAULT_FORMATS = ['json',]

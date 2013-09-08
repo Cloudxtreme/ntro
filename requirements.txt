@@ -1,4 +1,7 @@
-Django
-South
+Django==1.5.2
+South==0.8
+django-tastypie==0.10.0
+mimeparse==0.1.3
+Pillow==2.1.0
 pyklout
 python-twitter
