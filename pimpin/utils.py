@@ -26,8 +26,10 @@ def get_twitter_user(username):
 def get_twitter_followers(username):
     """ Get number of twitter followers """
     user = get_twitter_user(username)
-    return user.followers_count
-
+    if user is not None:
+        return user.followers_count
+    else:
+        return 1
 
 def get_scores(username):
     scores = dict()
