@@ -1,0 +1,11 @@
+<div class="connections">
+    <div class="query"><input type="text" id="connections-query" ng-model="queryString" /> </div>
+    <div class="list">
+        <div class="connection" ng-repeat="connection in connections | filter:queryString">
+            <div class="title">{{ connection.id }}</div>
+            <div class="pitch">{{ connection.pitch }}</div>
+            <div class="price">{{ connection.price }}</div>
+            <div class="created-at">{{ connection.created_at }}</div>
+        </div>
+    </div>
+</div>
