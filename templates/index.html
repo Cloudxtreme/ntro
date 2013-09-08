@@ -24,8 +24,8 @@
                           username: "{{ user.username }}",
                           api_key: "{{ user.api_key.key }}"
                       };
-                      {% else %}
-                      {% endif %}
+                  {% else %}
+                  {% endif %}
               </script>
               </head>
               <body>
@@ -37,28 +37,30 @@
               <a href="{% url "socialauth_begin" "twitter" %}">Login with twitter</a>
               {% endif %}
 
-              <div class="wrapper">
+              <div class="wrapper" ng-controller="NavCtrl">
                   <div class="navbar navbar-fixed-to">
                       <div class="navbar-inner">
                           <div class="container">
                               <div class="nav-collapse collapse">
                                   <div class="logo pull-left"></div>
                                   <ul class="nav pull-right">
-                                      <li class="activated">
+                                      <li ng-class="{'activated': isHomeActive()}">
                                           <a href="#/">Get intro</a>
                                       </li>
-                                      <li class="">
+                                      <li ng-class="{'activated': isConnectionsActive()}">
                                           <a href="#/connections">Make intro</a>
                                       </li>
-                                      <li class="">
+                                      <li ng-class="{'activated': isProfileActive()}">
                                           <a href="#/profile">Profile</a>
+                                      </li>
+                                      <li ng-show="isLoggedIn">
+                                          <a href="/user/logout/">Logout</a>
                                       </li>
                                   </ul>
                               </div>
           </div>
         </div>
       </div>
-      <div style="z-index:999;position:absolute;top:-10px;left:540px;float:left;-webkit-transform:rotate(-10deg);transform:rotate(-10deg);"><img src="{% static "images/PedroWasHere.png" %}" /></div>
 
       <ng-view></ng-view>
 
@@ -72,7 +74,5 @@
         </div>
       </footer>
       </div>
-
-
   </body>
 </html>

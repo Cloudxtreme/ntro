@@ -100,4 +100,16 @@ angular
     .controller("ProfileCtrl", function($scope, Restangular) {
         $scope.user = Restangular.one("user", pimp.user.username);
         $scope.connections = Restangular.all("connection").getList();
+    })
+    .controller("NavCtrl", function($scope, $location) {
+        $scope.isLoggedIn = pimp.user !== undefined;
+        $scope.isHomeActive = function() {
+            return $location.path().match(/^\/$/);
+        };
+        $scope.isConnectionsActive = function() {
+            return $location.path().match(/^\/connections$/);
+        };
+        $scope.isProfileActive = function() {
+            return $location.path().match(/^\/profile$/);
+        };
     });
