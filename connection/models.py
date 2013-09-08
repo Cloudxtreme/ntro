@@ -41,11 +41,8 @@ class Person(models.Model):
     klout_score = models.PositiveIntegerField(blank=True, null=True)
     tweet_score = models.PositiveIntegerField(blank=True, null=True)
     score = models.PositiveIntegerField(blank=True, null=True)
+    mugshot = models.URLField(blank=True)
     
-    mugshot = models.ImageField(upload_to=upload_to_mugshot,
-                                null=True,
-                                blank=True)
-
     # meta fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
