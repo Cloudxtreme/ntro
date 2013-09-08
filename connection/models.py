@@ -68,6 +68,9 @@ class Person(models.Model):
 
 class Connection(models.Model):
     """ Connection model """
+    title = models.CharField(max_length=255,
+                             blank=True)
+    url = models.URLField(blank=True)
     person = models.ForeignKey(Person)
     requested_by = models.ForeignKey(User,
                                      related_name='requested_by')
