@@ -79,7 +79,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    'south',
+    #'south',
     'tastypie',
     'social_auth',
     
@@ -110,7 +110,6 @@ LOGGING = {
     }
 }
 
-
 # API keys for scores
 API_KLOUT_KEY       = "dgde2ds2h5csr7jnvnkappyg"
 API_KLOUT_SECRET    = "qr68YUbXBM"
@@ -128,3 +127,4 @@ TASTYPIE_DEFAULT_FORMATS = ['json',]
 # Social login
 TWITTER_CONSUMER_KEY = 'JrWzRSTEwd47AR0QvJCmw'
 TWITTER_CONSUMER_SECRET = 'bVDtYS0dAaoM0z52jA0HU8upWXQjDl4fqJx0yiLnT4'
+LOGIN_REDIRECT_URL = '/'

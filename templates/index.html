@@ -14,7 +14,9 @@
   </head>
   <body id="index" class="home">
     {% if user.is_authenticated %}
-    Welcome {{ user.username }} | <a href="/logout/">Logout</a>
+    Welcome {{ user.username }} | <a href="/logout/">Logout</a><br />
+    API Key: {{ user.api_key.key }}
+    
     {% else %}
     <a href="{% url "socialauth_begin" "twitter" %}">Login with twitter</a>
     {% endif %}
