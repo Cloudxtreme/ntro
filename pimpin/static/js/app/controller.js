@@ -12,11 +12,11 @@ angular
     .controller("MakeConnectionCtrl", function ($scope) {
         $scope.isLoggedIn = pimp.user !== undefined;
 
-        $scope.loginUrl = function() {
-            return '/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
+        $scope.loginUrl = function () {
+            return '/login/twitter/?next=/%23/connection/pitch/' + $scope.twitterHandle;
         };
 
-        $scope.connectUrl = function() {
+        $scope.connectUrl = function () {
             return "#/connection/pitch/" + $scope.twitterHandle;
         };
     })
@@ -85,7 +85,7 @@ angular
                 });
         };
 
-        $scope.createIntro = function() {
+        $scope.createIntro = function () {
             $scope.connection.put();
         };
 
@@ -97,7 +97,19 @@ angular
         $scope.queryString = null;
         $scope.connections = Restangular.all("connection").getList();
     })
-    .controller("ProfileCtrl", function($scope, Restangular) {
+    .controller("ProfileCtrl", function ($scope, Restangular) {
         $scope.user = Restangular.one("user", pimp.user.username);
         $scope.connections = Restangular.all("connection").getList();
+    })
+    .controller("NavCtrl", function ($scope, $location) {
+        $scope.isLoggedIn = pimp.user !== undefined;
+        $scope.isHomeActive = function () {
+            return $location.path().match(/^\/$/);
+        };
+        $scope.isConnectionsActive = function () {
+            return $location.path().match(/^\/connections$/);
+        };
+        $scope.isProfileActive = function () {
+            return $location.path().match(/^\/profile$/);
+        };
     });
