@@ -1,20 +1,47 @@
-<div class="searchBox">
-    <div ng-show="step == 'enterName' || step == 'lookupSuccessful'">
-        Introduce me to <input type="text" id="connections-query" ng-model="connection.twitterHandle"/>
-        <div><a ng-click="lookupPerson()">Lookup Person</a></div>
+<div class="container">
+    <div class="demo-headline" style="margin: 40px 0 90px 0">
+        <h1>
+            We're introducing
+        </h1>
 
-        <div ng-show="lookupInProgress">Looking up</div>
-        <div ng-show="person != undefined">{{ person }}</div>
-        <div ng-show="error != undefined">{{ error }}</div>
+        <div class="row" style="margin: 20px 0">
+            <div class="span7" style="float:none;margin: 30px auto; overflow: auto;">
+                <div class="span3 avatar" style="margin: 0">#
+                    <img src="http://rockstart.com/earlydays/files/2012/06/Don-Ritzen.jpg"
+                         style="background:#fff;width:150px;height:150px;border-radius:50%; margin: 0 auto; display: block;"/><span
+                            class="span1" style="color:#fff;font-size:18px; width: 100%; margin: 10px 0 0 0;">YOU</span>
+                </div>
+                <span class="span1" style="color:#fff;font-size:18px;padding: 10px; margin: 50px auto; display: block;">to</span>
 
-        <div ng-show="step == 'lookupSuccessful'">
-            <a ng-click="requestIntroduction()">What would an intro cost?</a>
+                <div class="span3 avatar" style="margin: 0">
+                    <img src="http://www.biography.com/imported/images/Biography/Images/Profiles/Z/Mark-Zuckerberg-507402-1-402.jpg"
+                         style="background:#fff;width:150px;height:150px;border-radius:50%; margin: 0 auto; display: block;"/><span
+                        class="span1" style="color:#fff;font-size:18px; width: 100%; margin: 10px 0 0 0;">
+                    {{ connection.person.first_name }} {{ connection.person.last_name }}
+                        </span>
+                </div>
+            </div>
+            <div class="alert" style="  width: 250px;margin: 0 auto;padding: 5px;"><h2 style="color: #333;">For
+                ${{ connection.price }}</h2></div>
+        </div>
+        <h3>
+            Now add your Pitch:
+        </h3>
+
+        <form class="bs-docs-example form-inline">
+            <textarea rows="1" class="span8" placeholder="Title" ng-model="connection.title"></textarea>
+        </form>
+        <form class="bs-docs-example form-inline">
+            <textarea rows="4" class="span8" placeholder="Pitch" ng-model="connection.pitch"></textarea>
+        </form>
+        <form class="bs-docs-example form-inline">
+            <textarea rows="1" class="span8" placeholder="Link" ng-model="connection.link"></textarea>
+        </form>
+        <div class="row2">
+            <div class="span3" style="margin: 0 auto; float: none;">
+                <a class="btn btn-large btn-block btn-primary" href="#fakelink">Pitch for ${{ connection.price }}</a>
+            </div>
         </div>
     </div>
-
-    <div ng-show="step == 'requestIntroduction'">
-        A connection would cost you: {{ connection.price }}
-        Pitch: <textarea ng-model="connection.pitch"></textarea>
-        <div><a ng-click="createIntro()">Confirm</a></div>
-    </div>
-</div>
+    <!-- /demo-headline -->
+</div> <!-- /container -->
