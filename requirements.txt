@@ -8,6 +8,7 @@ Pillow==2.1.0
 python-openid
 oauth2
 django-social-auth
+python-linkedin
 
 # Score calculation
 pyklout
