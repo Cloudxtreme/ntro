@@ -5,7 +5,6 @@ from social_auth.models import UserSocialAuth
 from pyklout import Klout
 import twitter
 import math
-import json
 
 def get_klout_score(username):
     """ Get klout score based on twitter handle """
@@ -38,7 +37,7 @@ def get_twitter_user(username):
     try:
         return api.GetUser(screen_name=username)
     except:
-        return None            
+        return None
 
 def get_twitter_followers(username):
     """ Get number of twitter followers """
