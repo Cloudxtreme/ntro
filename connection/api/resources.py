@@ -121,8 +121,7 @@ class ConnectionResource(ModelResource):
         try:
             con = Connection.objects.get(requested_by=bundle.request.user,
                                          person__twitter_handle=person)
-        except Connection.DoesNotExist:
-            pass
+        except Connection.DoesNotExist: pass
         else:
             raise ImmediateHttpResponse(HttpResponseRedirect("/api/v1/connection/%s/" % con.id))
         

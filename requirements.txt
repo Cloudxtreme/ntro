@@ -13,4 +13,9 @@ django-social-auth
 pyklout
 python-twitter
 
+# Requests
 requests
+
+# Worker
+django-celery==3.0.23
+
