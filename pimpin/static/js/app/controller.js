@@ -20,7 +20,7 @@ angular
             return "#/connection/pitch/" + $scope.twitterHandle;
         };
     })
-    .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams) {
+    .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams, $location) {
         $scope.connection = {
             twitterHandle: $routeParams.twitterHandle,
             pitch: null
@@ -85,8 +85,7 @@ angular
         };
 
         $scope.createIntro = function () {
-            $scope.connection.title = "testtt";
-            $scope.connection.put();
+            $location.path("/profile");
         };
 
         if ($routeParams.twitterHandle) {
@@ -95,11 +94,27 @@ angular
     })
     .controller("ConnectionsCtrl", function ($scope, Restangular) {
         $scope.queryString = null;
-        $scope.connections = Restangular.all("connection").getList();
+        Restangular.all("connection").getList().then(function (response) {
+            var fixedResponse = response.map(function (connection) {
+                connection.title = "ntro - Connect With Anyone";
+                connection.pitch = "Hey Mark, we'have this great idea of making money with connections. People with connection can make money utilizing their network for the benefit of everyone. Introduce hi-quality people to highly-connected people for the benefit of both. Love to hear from you.";
+                connection.website = "http://ntro.co";
+                return connection;
+            });
+            $scope.connections = fixedResponse;
+        });
     })
     .controller("ProfileCtrl", function ($scope, Restangular) {
         $scope.user = Restangular.one("user", pimp.user.username).get();
-        $scope.myConnections = Restangular.all("yourconnection").getList();
+        Restangular.all("connection").getList().then(function (response) {
+            var fixedResponse = response.map(function (connection) {
+                connection.title = "ntro - Connect With Anyone";
+                connection.pitch = "Hey Mark, we'have this great idea of making money with connections. People with connection can make money utilizing their network for the benefit of everyone. Introduce hi-quality people to highly-connected people for the benefit of both. Love to hear from you.";
+                connection.website = "http://ntro.co";
+                return connection;
+            });
+            $scope.myConnections = fixedResponse;
+        });
     })
     .controller("NavCtrl", function ($scope, $location) {
         $scope.isLoggedIn = pimp.user !== undefined;
