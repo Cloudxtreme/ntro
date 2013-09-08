@@ -110,7 +110,6 @@ LOGGING = {
     }
 }
 
-
 # API keys for scores
 API_KLOUT_KEY       = "dgde2ds2h5csr7jnvnkappyg"
 API_KLOUT_SECRET    = "qr68YUbXBM"
