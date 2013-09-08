@@ -30,7 +30,11 @@ class Person(models.Model):
 
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
+    
+    klout_score = models.PositiveIntegerField(blank=True, null=True)
+    tweet_score = models.PositiveIntegerField(blank=True, null=True)
     score = models.PositiveIntegerField(blank=True, null=True)
+    
     mugshot = models.ImageField(upload_to=upload_to_mugshot,
                                 null=True,
                                 blank=True)
@@ -92,11 +96,11 @@ models.signals.post_save.connect(create_api_key, sender=User)
 
 def calculate_price_handler(sender, instance, created, *args, **kwargs):
     if created:
-        calculate_price.delay(instance)
+        calculate_price(instance)
 
 def get_twitter_info_handler(sender, instance, created, *args, **kwargs):
     if created:
-        get_twitter_info.delay(instance)
+        get_twitter_info(instance)
 
 models.signals.post_save.connect(calculate_price_handler, sender=Connection)
 models.signals.post_save.connect(get_twitter_info_handler, sender=Person)

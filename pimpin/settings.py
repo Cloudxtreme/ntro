@@ -1,7 +1,6 @@
 import os
-import djcelery
-
-djcelery.setup_loader()
+# import djcelery
+# djcelery.setup_loader()
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
@@ -86,8 +85,8 @@ INSTALLED_APPS = (
     #'south',
     'tastypie',
     'social_auth',
-    'djcelery',
-    'kombu.transport.django',
+    #'djcelery',
+    #'kombu.transport.django',
     
     'connection',
 )
