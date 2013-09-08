@@ -7,14 +7,16 @@ from django.views.generic import TemplateView
 
 from tastypie.api import Api
 
-from connection.api.resources import ConnectionResource, PersonResource, UserResource
+from connection.api.resources import ConnectionResource, PersonResource, UserResource, YourConnectionResource
 
 admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserResource())
 v1_api.register(ConnectionResource())
+v1_api.register(YourConnectionResource())
 v1_api.register(PersonResource())
+
 
 urlpatterns = patterns('',
     url(r'', include('social_auth.urls')),

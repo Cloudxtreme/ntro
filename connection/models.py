@@ -8,6 +8,13 @@ from connection.tasks import calculate_price, get_twitter_info
 import hashlib
 import os
 
+CONNECTION_STATUS_CHOICES = (
+    ('calculating', 'Calculating'),
+    ('public', 'Public'),
+    ('in-progress', 'In Progress'),
+    ('closed', 'Closed'),
+)
+
 def upload_to_mugshot(instance, filename):
     """
     Uploads a mugshot.
@@ -34,11 +41,8 @@ class Person(models.Model):
     klout_score = models.PositiveIntegerField(blank=True, null=True)
     tweet_score = models.PositiveIntegerField(blank=True, null=True)
     score = models.PositiveIntegerField(blank=True, null=True)
+    mugshot = models.URLField(blank=True)
     
-    mugshot = models.ImageField(upload_to=upload_to_mugshot,
-                                null=True,
-                                blank=True)
-
     # meta fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,6 +65,9 @@ class Person(models.Model):
 
 class Connection(models.Model):
     """ Connection model """
+    title = models.CharField(max_length=255,
+                             blank=True)
+    website = models.URLField(blank=True)
     person = models.ForeignKey(Person)
     requested_by = models.ForeignKey(User,
                                      related_name='requested_by')
@@ -72,13 +79,16 @@ class Connection(models.Model):
 
     price = models.DecimalField(blank=True,
                                 null=True,
-                                max_digits=5,
+                                max_digits=20,
                                 decimal_places=2)
 
     pitch = models.TextField(blank=True)
 
     is_connected = models.BooleanField()
     is_payed = models.BooleanField()
+    status = models.CharField(max_length=255,
+                              choices=CONNECTION_STATUS_CHOICES,
+                              default=CONNECTION_STATUS_CHOICES[0][0])
 
     # meta fields
     created_at = models.DateTimeField(auto_now_add=True)
@@ -89,7 +99,8 @@ class Connection(models.Model):
                                          self.person)
 
     class Meta:
-        db_table = 'connections'    
+        db_table = 'connections'
+        ordering = ['-created_at',]
 
 # Create an API key
 models.signals.post_save.connect(create_api_key, sender=User)

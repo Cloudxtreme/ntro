@@ -26,7 +26,6 @@ angular
             pitch: null
         };
 
-        $scope.step = "enterName";
         $scope.lookupInProgress = false;
         $scope.person = null;
 
@@ -49,7 +48,7 @@ angular
                     if (person.score && person.score !== null) {
                         $scope.person = person;
                         $scope.lookupInProgress = false;
-                        $scope.step = "lookupSuccessful";
+                        $scope.requestIntroduction();
                     } else {
                         $timeout($scope.updatePerson, 1000);
                     }
@@ -58,7 +57,6 @@ angular
 
 
         $scope.requestIntroduction = function () {
-            $scope.step = "requestIntroduction";
             Restangular.all("connection").post({person: "/api/v1/person/" + $scope.connection.twitterHandle + "/"})
                 .then(function (connection) {
                     if (connection.statusCode() === 201) {
@@ -99,7 +97,7 @@ angular
     })
     .controller("ProfileCtrl", function ($scope, Restangular) {
         $scope.user = Restangular.one("user", pimp.user.username);
-        $scope.connections = Restangular.all("connection").getList();
+        $scope.myConnections = Restangular.all("yourconnection").getList();
     })
     .controller("NavCtrl", function ($scope, $location) {
         $scope.isLoggedIn = pimp.user !== undefined;

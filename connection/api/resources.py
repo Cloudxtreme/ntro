@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation
@@ -9,8 +10,10 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.resources import ALL
 
 from connection.models import Connection, Person
+from pimpin.utils import get_twitter_user
 
 import twitter
 
@@ -76,6 +79,14 @@ class UserResource(ModelResource):
         return [
             url(r"^(?P<resource_name>%s)/(?P<username>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
         ]
+        
+    def dehydrate(self, bundle):
+        twitter_user = get_twitter_user(bundle.data['username'])
+        if twitter_user is not None:
+            bundle.data['mugshot'] = twitter_user.profile_image_url.replace('_normal', '')
+        else:
+            bundle.data['mugshot'] = None
+        return bundle
 
 #
 # Connection
@@ -87,11 +98,13 @@ class ConnectionValidation(Validation):
         if 'person' not in bundle.data:
             return {'__all__': 'At least supply us with the person.'}
 
-        person = bundle.data['person'].split('/')[-2]
-        try:
-            Person.objects.get(twitter_handle=person)
-        except Person.DoesNotExist:
-            return {'__all__': 'Person does not exist in our database.'}
+        if request.method == "POST":
+            person = bundle.data['person'].split('/')[-2]
+
+            try:
+                Person.objects.get(twitter_handle=person)
+            except Person.DoesNotExist:
+                return {'__all__': 'Person does not exist in our database.'}
         return {}
 
 class AuthenticatedPostAuthentication(ApiKeyAuthentication):
@@ -110,10 +123,13 @@ class ConnectionResource(ModelResource):
     
     class Meta:
         queryset = Connection.objects.all()
-        allowed_methods = ['get', 'post']
+        allowed_methods = ['get', 'post', 'put']
         authentication = AuthenticatedPostAuthentication()
         authorization = Authorization()
         validation = ConnectionValidation()
+        filtering = {
+            'status': ALL,
+        }
     
     def obj_create(self, bundle, **kwargs):
         bundle.data['requested_by'] = u'/api/v1/user/%s/' % bundle.request.user
@@ -128,3 +144,18 @@ class ConnectionResource(ModelResource):
         
         return super(ConnectionResource, self).obj_create(bundle,
                                                           **kwargs)
+
+class YourConnectionResource(ModelResource):
+    """ Displaying all the connections """
+    person = fields.ForeignKey(PersonResource, 'person', full=True, blank=True)
+    requested_by = fields.ForeignKey(UserResource, 'requested_by', blank=True, full=True)
+    responded_by = fields.ForeignKey(UserResource, 'responded_by', blank=True, null=True)
+    
+    class Meta:
+        queryset = Connection.objects.all()
+        allowed_methods = ['get', 'post']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+
+    def apply_authorization_limits(self, request, object_list):
+        return object_list.filter(Q(requested_by=request.user) | Q(responded_by=request.user))
