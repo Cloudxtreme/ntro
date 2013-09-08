@@ -79,7 +79,7 @@ class Connection(models.Model):
 
     price = models.DecimalField(blank=True,
                                 null=True,
-                                max_digits=5,
+                                max_digits=20,
                                 decimal_places=2)
 
     pitch = models.TextField(blank=True)

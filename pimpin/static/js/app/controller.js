@@ -26,7 +26,6 @@ angular
             pitch: null
         };
 
-        $scope.step = "enterName";
         $scope.lookupInProgress = false;
         $scope.person = null;
 
@@ -49,7 +48,7 @@ angular
                     if (person.score && person.score !== null) {
                         $scope.person = person;
                         $scope.lookupInProgress = false;
-                        $scope.step = "lookupSuccessful";
+                        $scope.requestIntroduction();
                     } else {
                         $timeout($scope.updatePerson, 1000);
                     }
@@ -58,7 +57,6 @@ angular
 
 
         $scope.requestIntroduction = function () {
-            $scope.step = "requestIntroduction";
             Restangular.all("connection").post({person: "/api/v1/person/" + $scope.connection.twitterHandle + "/"})
                 .then(function (connection) {
                     if (connection.statusCode() === 201) {
