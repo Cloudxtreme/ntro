@@ -20,7 +20,6 @@ class PersonValidation(Validation):
             return {'__all__': 'At least supply us with the twitter handle.'}
 
         twitter_handle = bundle.data['twitter_handle']
-
         api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
                           consumer_secret=settings.API_TWITTER_SECRET,
                           access_token_key=settings.API_TWITTER_TOKEN_KEY,
