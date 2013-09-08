@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.http import HttpResponse
 
 from tastypie.api import Api
 
@@ -17,9 +18,12 @@ v1_api.register(ConnectionResource())
 v1_api.register(YourConnectionResource())
 v1_api.register(PersonResource())
 
+def ping(request):
+    return HttpResponse("pong", content_type="text/plain")
 
 urlpatterns = patterns('',
     url(r'', include('social_auth.urls')),
+    url(r'^ping$', ping),
     url('^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(v1_api.urls)),
