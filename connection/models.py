@@ -37,7 +37,7 @@ class Person(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u'%s %s' % (self.first_name, self.last_name)
+        return u'%s %s' % (self.twitter_handle)
 
     def set_score(self):
         """ Set's the price for this person """

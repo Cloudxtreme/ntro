@@ -10,7 +10,6 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
 
-
 from connection.models import Connection, Person
 
 import twitter
