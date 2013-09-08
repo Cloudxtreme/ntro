@@ -86,8 +86,9 @@ class ConnectionValidation(Validation):
         if 'person' not in bundle.data:
             return {'__all__': 'At least supply us with the person.'}
 
+        person = bundle.data['person'].split('/')[-2]
         try:
-            Person.objects.get(twitter_handle=bundle.data['person'])
+            Person.objects.get(twitter_handle=person)
         except Person.DoesNotExist:
             return {'__all__': 'Person does not exist in our database.'}
         return {}
@@ -114,7 +115,7 @@ class ConnectionResource(ModelResource):
         validation = ConnectionValidation()
     
     def obj_create(self, bundle, **kwargs):
-        bundle.data['requested_by'] = u'/user/%s/' % bundle.request.user
+        bundle.data['requested_by'] = u'/api/v1/user/%s/' % bundle.request.user
         person = bundle.data['person'].split('/')[-2]
 
         try:
