@@ -41,8 +41,8 @@ def get_price(buyer, victim):
     buyer_scores = get_scores(buyer)
     victim_scores = get_scores(victim)
     startup_price = 10
-    klout_rate    = 2
-    tweet_rate    = 1000
+    klout_rate    = 1
+    tweet_rate    = 250
     return startup_price \
            + klout_rate * max(0, victim_scores['klout'] - buyer_scores['klout']) \
            + tweet_rate * max(0, (math.log(victim_scores['twitter'], 10) - math.log(buyer_scores['twitter'], 10)) ** 1.4)

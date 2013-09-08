@@ -1,7 +1,6 @@
 from pimpin.utils import get_scores, get_price, get_twitter_user
 
 def get_twitter_info(person):
-    print "IM HERE"
     scores = get_scores(person.twitter_handle)
     person.klout_score= int(scores['klout'])
     person.tweet_score = int(scores['twitter'])
