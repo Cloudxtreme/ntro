@@ -1,14 +1,11 @@
-from celery import task
 from pimpin.utils import *
 
-@task()
 def get_twitter_info(person):
     scores = get_scores(person.twitter_handle)
     person.score_klout = scores['klout']
     person.score_twitter = scores['twitter']
     person.save()
 
-@task()
 def calculate_price(connection):
     """ Calculates the score """
     buyer = connection.requested_by.username
