@@ -5,7 +5,7 @@ angular
         $routeProvider
             .when("/", {templateUrl: partialsUrl + "home.html", controller: "MakeConnectionCtrl"})
             .when("/connection/pitch/:twitterHandle", {templateUrl: partialsUrl + "writePitch.html", controller: "WritePitchCtrl"})
-            .when("/profile", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
+            .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
             .when("/profile", {templateUrl: partialsUrl + "profile.html", controller: "ProfileCtrl"})
             .otherwise({redirectTo: "/"});
     })
