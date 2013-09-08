@@ -15,8 +15,6 @@ from tastypie.resources import ALL
 from connection.models import Connection, Person
 from pimpin.utils import get_twitter_user
 
-import twitter
-
 class PersonValidation(Validation):
     def is_valid(self, bundle, request=None):
         if not bundle.data:
@@ -26,13 +24,9 @@ class PersonValidation(Validation):
             return {'__all__': 'At least supply us with the twitter handle.'}
 
         twitter_handle = bundle.data['twitter_handle']
-        api = twitter.Api(consumer_key=settings.API_TWITTER_KEY,
-                          consumer_secret=settings.API_TWITTER_SECRET,
-                          access_token_key=settings.API_TWITTER_TOKEN_KEY,
-                          access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
 
         try:
-            api.GetUser(screen_name=twitter_handle)
+            get_twitter_user(twitter_handle)
         except:
             return {'__all__': 'User with this Twitter user does not exist.'}
 
@@ -44,11 +38,10 @@ class PersonResource(ModelResource):
         queryset = Person.objects.all()
         allowed_methods = ['get', 'post']
         detail_uri_name = 'twitter_handle'
-        excludes = ['id']
         validation = PersonValidation()
         authorization = Authorization()
         authentictation = Authentication()
-        excludes = ['klout_score', 'tweet_score']
+        excludes = ['id', 'klout_score', 'tweet_score']
 
     def prepend_urls(self):
         return [
