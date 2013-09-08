@@ -1,19 +1,25 @@
 angular
     .module("pimp.app", ["pimp.config", "pimp.api"])
     .config(function ($routeProvider) {
-        var partialsUrl = "static/partials/"
+        var partialsUrl = "/static/partials/"
         $routeProvider
             .when("/", {templateUrl: partialsUrl + "makeConnection.html", controller: "MakeConnectionCtrl"})
             .when("/connection/make", {templateUrl: partialsUrl + "makeConnection.html", controller: "MakeConnectionCtrl"})
+            .when("/connection/pitch/:twitterHandle", {templateUrl: partialsUrl + "writePitch.html", controller: "WritePitchCtrl"})
             .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
             .otherwise({redirectTo: "/"});
     })
-    .config(function ($locationProvider) {
-        $locationProvider.html5Mode(true);
+    .controller("MakeConnectionCtrl", function ($scope, $location) {
+        $scope.isLoggedIn = pimp.user !== undefined;
+
+        $scope.loginUrl = function() {
+            return '#/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
+        }
     })
-    .controller("MakeConnectionCtrl", function ($scope, Restangular, $timeout) {
+    .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams) {
+        debugger;
         $scope.connection = {
-            twitterHandle: null,
+            twitterHandle: $routeParams.twitterHandle,
             pitch: null
         };
 
