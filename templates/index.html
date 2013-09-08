@@ -11,6 +11,17 @@
     <script type="text/javascript" src="{% static "js/app/rest.js" %}"></script>
     <script type="text/javascript" src="{% static "js/app/controller.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/master.css" %}" type="text/css" media="screen" />
+
+    <script type="text/javascript">
+        var pimp = {};
+        {% if user.is_authenticated %}
+        pimp.user = {
+            username: "{{ user.username }}",
+            api_key: "{{ user.api_key.key }}"
+        };
+        {% else %}
+        {% endif %}
+    </script>
   </head>
   <body id="index" class="home">
     {% if user.is_authenticated %}

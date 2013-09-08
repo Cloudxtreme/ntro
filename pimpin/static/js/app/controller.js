@@ -35,15 +35,16 @@ angular
         };
 
         $scope.updatePerson = function () {
-            Restangular.one("person", $scope.connection.twitterHandle).then(function (person) {
-                if (person.score && person.score !== null) {
-                    $scope.person = person;
-                    $scope.lookupInProgress = false;
-                    $scope.step = "lookupSuccessful";
-                } else {
-                    $timeout($scope.updatePerson, 1000);
-                }
-            });
+            Restangular.one("person", $scope.connection.twitterHandle).get()
+                .then(function (person) {
+                    if (person.score && person.score !== null) {
+                        $scope.person = person;
+                        $scope.lookupInProgress = false;
+                        $scope.step = "lookupSuccessful";
+                    } else {
+                        $timeout($scope.updatePerson, 1000);
+                    }
+                });
         };
 
 
@@ -61,7 +62,7 @@ angular
                     if (connection.price && connection.price !== null) {
                         $scope.connection = connection;
                     } else {
-                        $timeout(function() {
+                        $timeout(function () {
                             $scope.updateConnection(connection.id);
                         }, 1000);
                     }
