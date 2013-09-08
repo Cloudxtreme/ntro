@@ -17,5 +17,5 @@ def get_twitter_followers(username):
                         access_token_key=settings.API_TWITTER_TOKEN_KEY \
                         access_token_secret=settings.API_TWITTER_TOKEN_SECRET)
     
-    followers = api.GetFollowers(username)
+    followers = api.GetFollowers(screen_name=username)
     return len(followers)

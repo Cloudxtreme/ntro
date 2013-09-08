@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{% static "css/master.css" %}" type="text/css" media="screen" />
   </head>
   <body id="index" class="home">
+    {% if user.is_authenticated %}
+    Welcome {{ user.username }} | <a href="/logout/">Logout</a>
+    {% else %}
+    <a href="{% url "socialauth_begin" "twitter" %}">Login with twitter</a>
+    {% endif %}
     <h1>PIMP</h1>
 
     <div class="content" ng-view>

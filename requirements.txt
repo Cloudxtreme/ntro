@@ -3,5 +3,12 @@ South==0.8
 django-tastypie==0.10.0
 mimeparse==0.1.3
 Pillow==2.1.0
+
+# Social login
+python-openid
+oauth2
+django-social-auth
+
+# Score calculation
 pyklout
 python-twitter
