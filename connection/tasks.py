@@ -5,7 +5,7 @@ def get_twitter_info(person):
     scores = get_scores(person.twitter_handle)
     person.klout_score= int(scores['klout'])
     person.tweet_score = int(scores['twitter'])
-    person.score = person.klout_score + person.twitter_score
+    person.score = person.klout_score + person.tweet_score
     person.save()
 
 def calculate_price(connection):
