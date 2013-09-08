@@ -61,9 +61,11 @@ class Connection(models.Model):
     responded_by = models.ForeignKey(User,
                                      blank=True,
                                      null=True,
-                                     related_name='connected_by')
+                                     related_name='responded_by')
 
-    price = models.DecimalField(max_digits=5,
+    price = models.DecimalField(blank=True,
+                                null=True,
+                                max_digits=5,
                                 decimal_places=2)
 
     pitch = models.TextField(blank=True)
