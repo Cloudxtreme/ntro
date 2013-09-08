@@ -27,26 +27,26 @@
 </div> 
 <div class="container activity">
   <h2>Activity</h2>
-  <div class="intro row">
+  <div class="intro row" ng-repeat="connection in myConnections">
     <div class="intro-requester span2">
       <img src="https://sphotos-a-sea.xx.fbcdn.net/hphotos-ash3/941290_10151421539652876_1392759574_n.jpg" />
-      <div class="intro-name">Jean-Pierre<br />Pequito</div>
+      <div class="intro-name">{{ connection.requested_by.first_name }} <br /> {{ connection.requested_by.last_name }}</div>
     </div>
     <div class="intro-target span2  ">
-      <img src="https://sphotos-a-sea.xx.fbcdn.net/hphotos-ash3/941290_10151421539652876_1392759574_n.jpg" />
-      <div class="intro-name">Jean-Pierre<br />Pequito</div>
+      <img ng-src="{{ connection.person.mugshot }}" />
+      <div class="intro-name">{{ connection.person.first_name }} <br /> {{ connection.person.last_name }}</div>
     </div>
     <div class="intro-pitch span8">
       <div class="intro-title">
-        <h2>I'm looking for feedback fellas!</h2>
+        <h2>{{ connection.title }}</h2>
       </div>
       <div class="intro-content">
-        <p>Mauris eget felis quam. Cras tempus vehicula elit a pellentesque. Quisque sit amet vestibulum risus, id mattis erat. Mauris sit amet vehicula felis, ac accumsan odio. Cras tristique ultricies tellus non fermentum. Cras quis imperdiet ipsum. Pellentesque eu faucibus ligula. </p>
+        <p>{{ connection.pitch }}</p>
       </div>
       <div class="intro-attach">
         <div class="input-prepend">
           <span class="add-on"><img src="/static/images/icons/attach.png" /></span>
-          <span class="span7 uneditable-input" id="prependedInput" type="text">https://sphotos-a-sea.xx.fbcdn.net/hphotos-ash3/941290_10151421539652876_1392759574_n.jpg</span>
+          <span class="span7 uneditable-input" id="prependedInput" type="text">{{ connection.website }}</span>
         </div>
       </div>
       <div class="intro-meta">Posted 3 days ago</div>
@@ -55,7 +55,7 @@
     <div class="action">      
       <div class="pull-right intro-action">
         <span class="pull-left"><small>(Price)</small></span>
-        <span class="intro-price pull-left">$800</span>
+        <span class="intro-price pull-left">${{ connection.price }}</span>
         <span class="pull-right"><a href="#fakelink" class="btn btn-large btn-block btn-primary">Pending</a></span>
       </div>
     </div>
