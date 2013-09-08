@@ -1,2 +1,4 @@
 Django
 South
+pyklout
+python-twitter

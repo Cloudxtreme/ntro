@@ -1,4 +1,5 @@
 *.pyc
+*.swp
 pimpin.db
 pimpin.sublime-project
 pimpin.sublime-workspace
