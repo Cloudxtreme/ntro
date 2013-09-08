@@ -11,13 +11,21 @@ angular
     })
     .controller("MakeConnectionCtrl", function ($scope) {
         $scope.isLoggedIn = pimp.user !== undefined;
+        $scope.twitterHandle = null;
 
+        $scope.normalizedTwitterHandle = function() {
+            if ($scope.twitterHandle && $scope.twitterHandle !== null && $scope.twitterHandle.match(/^@.*/)) {
+                return $scope.twitterHandle.substring(1);
+            } else {
+                return $scope.twitterHandle;
+            }
+        }
         $scope.loginUrl = function () {
-            return '/login/twitter/?next=/%23/connection/pitch/' + $scope.twitterHandle;
+            return '/login/twitter/?next=/%23/connection/pitch/' + $scope.normalizedTwitterHandle();
         };
 
         $scope.connectUrl = function () {
-            return "#/connection/pitch/" + $scope.twitterHandle;
+            return "#/connection/pitch/" + $scope.normalizedTwitterHandle();
         };
     })
     .controller("WritePitchCtrl", function ($scope, Restangular, $timeout, $routeParams, $location) {
