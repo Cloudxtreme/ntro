@@ -13,7 +13,7 @@ angular
         $scope.isLoggedIn = pimp.user !== undefined;
 
         $scope.loginUrl = function () {
-            return '/login/twitter/?returnUrl=/connection/pitch/' + $scope.twitterHandle;
+            return '/login/twitter/?next=/%23/connection/pitch/' + $scope.twitterHandle;
         };
 
         $scope.connectUrl = function () {
