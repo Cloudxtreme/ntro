@@ -1,5 +1,5 @@
 body {
-  background-color: #ECF0F1;
+  background-color: #ECF0F1; height:100%;
 }
 .navbar {
   margin-bottom:0;
@@ -183,6 +183,7 @@ margin: 0 10px;
   margin: 10px 0;
   text-align: left;
   color:#34495e;
+  font-weight: 700;
 }
 .intro-content p {
   padding:0 20px;
@@ -228,8 +229,24 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   transition: border .25s linear, color .25s linear;
   -webkit-backface-visibility: hidden;
 }
+.activity {
+  padding-bottom:120px;
+}
 .activity h2 {
   text-align: center;
   margin:60px 0;
   font-size:2.4em;
+  color:#2C3E50;
+}
+footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.hero-unit.connections {
+
+}
+.connections h1 {
+  font-size: 1.6em;
+  font-weight: 400;
 }
