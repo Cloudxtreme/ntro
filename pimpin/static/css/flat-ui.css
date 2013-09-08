@@ -16,6 +16,15 @@
   text-transform: none;
   -webkit-font-smoothing: antialiased;
 }
+html, body {
+height: 100%;
+}
+.wrapper {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+}
 /* Use the following CSS code if you want to have a class per icon */
 /*
 Instead of a list of all class selectors,
@@ -191,13 +200,12 @@ you can use the generic selector below, but it's slower:
   line-height: 100px;
 }
 .demo-logo .logo {
-  background: url(../images/demo/logo-mask.png) center 0 no-repeat;
-  background-size: 256px 186px;
-  height: 186px;
+  background: url(../images/demo/ntro-logo.png) center 0 no-repeat;
+  height: 106px;
   margin: 0 auto 26px;
   overflow: hidden;
   text-indent: -9999em;
-  width: 256px;
+  width: 366px;
 }
 .demo-logo small {
   color: rgba(52, 73, 94, 0.30000000000000004);
@@ -415,6 +423,10 @@ body {
   font-family: "Lato", sans-serif;
   font-size: 14px;
   line-height: 1.231;
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background: #34495e;
 }
 input,
 button,
@@ -437,19 +449,22 @@ a:hover {
   text-decoration: none;
 }
 h1 {
-  font-size: 32px;
-  font-weight: 900;
+  font-size: 56px;
+  font-weight: normal;
+  color: #fff;
 }
 h2 {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: lighter;
   margin-bottom: 2px;
+  color: #fff;
 }
 h3 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: normal;
   margin-bottom: 4px;
   margin-top: 2px;
+  color: #fff;
 }
 h4 {
   font-size: 18px;
@@ -1217,7 +1232,7 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  border: 2px solid #bdc3c7;
+  border: 4px solid #bdc3c7;
   color: #34495e;
   font-family: "Lato", sans-serif;
   font-size: 14px;
@@ -1666,7 +1681,6 @@ textarea {
   width: 100% !important;
 }
 textarea[class*="span"] {
-  width: 100% !important;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -3002,7 +3016,6 @@ footer p {
   background-color: #1abc9c;
   color: #d1f2eb;
   margin-left: 42px;
-  min-height: 286px;
   padding: 0 30px 30px;
 }
 .footer-banner .footer-title {
@@ -3865,4 +3878,46 @@ body.vjs-full-window {
 .mhl,
 .mal {
   margin-left: 20px;
+}
+
+
+/* add-ins */
+
+header{
+  height: 60px;
+  background: #EDEFF1;
+  width: 100%;
+  padding: 5px 30px 10px;
+  margin-top: 0;
+  display: block;
+}
+
+.navbar .logo{
+  width: 140px;
+  height: 37px;
+  background: url(../images/ntro/ntro-logo.png) center 0 no-repeat;
+  margin-top: 15px;
+}
+
+footer{
+  position:absolute;
+  bottom:0px;
+  width:100%;
+}
+
+.wrapper{
+  min-height: 100%;
+  position: relative;
+  display: block;
+}
+
+.recently-introduced{
+  margin: 30px 0;
+}
+
+.recently-introduced img{
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
 }
