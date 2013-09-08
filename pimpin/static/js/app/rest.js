@@ -10,15 +10,17 @@ angular
             });
         }
 
-        RestangularProvider.setResponseExtractor(function (response, operation, what, url) {
+        RestangularProvider.setResponseExtractor(function (data, operation, what, url, response) {
+            var newResponse;
             if (operation === "getList") {
-                var newResponse;
-                newResponse = response.objects;
-                newResponse.meta = response.meta;
-                console.log(newResponse);
-                return newResponse;
+                newResponse = data.objects;
+                newResponse.meta = data.meta;
             } else {
-                return response;
+                newResponse = data;
             }
+            newResponse.statusCode = function() {
+                return response.status;
+            };
+            return newResponse;
         });
     });
