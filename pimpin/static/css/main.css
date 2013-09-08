@@ -72,7 +72,7 @@ body {
 .demo-headline {
   padding: 0 0 0 0;
 }
-.profile-avatar img {
+.profile-avatar img, .compare .avatar img {
   -webkit-border-radius: 77px;
   -moz-border-radius: 77px;
   border-radius: 77px;
@@ -208,7 +208,7 @@ margin: 0 10px;
   background-color: #eeeeee;
   border: 2px solid #bdc3c7
 }
-textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+.uneditable-input {
   border: 2px solid #bdc3c7;
   color: #34495e;
   font-family: "Lato", sans-serif;
