@@ -8,6 +8,13 @@ from connection.tasks import calculate_price, get_twitter_info
 import hashlib
 import os
 
+CONNECTION_STATUS_CHOICES = (
+    ('calculating', 'Calculating'),
+    ('public', 'Public'),
+    ('in-progress', 'In Progress'),
+    ('closed', 'Closed'),
+)
+
 def upload_to_mugshot(instance, filename):
     """
     Uploads a mugshot.
@@ -79,6 +86,9 @@ class Connection(models.Model):
 
     is_connected = models.BooleanField()
     is_payed = models.BooleanField()
+    status = models.CharField(max_length=255,
+                              choices=CONNECTION_STATUS_CHOICES,
+                              default=CONNECTION_STATUS_CHOICES[0][0])
 
     # meta fields
     created_at = models.DateTimeField(auto_now_add=True)
