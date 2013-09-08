@@ -1,4 +1,4 @@
-from pimpin.utils import get_scores, get_price, get_twitter_user
+from ntro.utils import get_scores, get_price, get_twitter_user
 
 def get_twitter_info(person):
     scores = get_scores(person.twitter_handle)

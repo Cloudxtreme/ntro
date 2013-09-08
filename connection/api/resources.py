@@ -11,7 +11,7 @@ from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.resources import ALL
 
 from connection.models import Connection, Person
-from pimpin.utils import get_twitter_user
+from ntro.utils import get_twitter_user
 
 class PersonValidation(Validation):
     def is_valid(self, bundle, request=None):

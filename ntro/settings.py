@@ -17,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'pimpin.db',
+        'NAME': 'ntro.db',
     }
 }
 
@@ -60,8 +60,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'pimpin.urls'
-WSGI_APPLICATION = 'pimpin.wsgi.application'
+ROOT_URLCONF = 'ntro.urls'
+WSGI_APPLICATION = 'ntro.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, '../templates'),
