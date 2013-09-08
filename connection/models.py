@@ -100,7 +100,7 @@ class Connection(models.Model):
 
     class Meta:
         db_table = 'connections'
-        ordering = ['-created-at',]
+        ordering = ['-created_at',]
 
 # Create an API key
 models.signals.post_save.connect(create_api_key, sender=User)
