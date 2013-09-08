@@ -123,6 +123,7 @@ API_TWITTER_TOKEN_SECRET = "gMy6pihh4HrnpPlMoCp0HVess8vGeWt0fudVnevx44"
 
 # Tastypie settings
 TASTYPIE_DEFAULT_FORMATS = ['json',]
+TASTYPIE_AUTH_USER_PARAM = 'api_user'
 
 # Social login
 TWITTER_CONSUMER_KEY = 'JrWzRSTEwd47AR0QvJCmw'

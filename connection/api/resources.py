@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.conf import settings
+from django.http import HttpResponseRedirect
 
 from tastypie.resources import ModelResource
 from tastypie.validation import Validation
 from tastypie.authorization import Authorization
-from tastypie.authentication import ApiKeyAuthentication, Authentication
+from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
-from tastypie.http import HttpSeeOther
 from tastypie.exceptions import ImmediateHttpResponse
 
 
@@ -54,11 +54,11 @@ class PersonResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         twitter_handle = bundle.data['twitter_handle']
         try:
-            Person.objects.get(twitter_handle=twitter_handle)
+            person = Person.objects.get(twitter_handle=twitter_handle)
         except Person.DoesNotExist:
             pass
         else:
-            raise ImmediateHttpResponse(HttpSeeOther("Person already exists"))
+            raise ImmediateHttpResponse(HttpResponseRedirect("/api/v1/person/%s/" % person.twitter_handle))
 
         return super(PersonResource, self).obj_create(bundle,
                                                       **kwargs)
@@ -87,10 +87,15 @@ class ConnectionValidation(Validation):
         if 'person' not in bundle.data:
             return {'__all__': 'At least supply us with the person.'}
 
+        try:
+            Person.objects.get(twitter_handle=bundle.data['person'])
+        except Person.DoesNotExist:
+            return {'__all__': 'Person does not exist in our database.'}
+        return {}
+
 class AuthenticatedPostAuthentication(ApiKeyAuthentication):
     def is_authenticated(self, request, **kwargs):
         """ If POST, don't check auth, otherwise fall back to parent """
-
         if request.method == "GET":
             return True
         else:
@@ -114,12 +119,12 @@ class ConnectionResource(ModelResource):
         person = bundle.data['person'].split('/')[-2]
 
         try:
-            Connection.objects.get(requested_by=bundle.request.user,
-                                   person__twitter_handle=person)
+            con = Connection.objects.get(requested_by=bundle.request.user,
+                                         person__twitter_handle=person)
         except Connection.DoesNotExist:
             pass
         else:
-            raise ImmediateHttpResponse(HttpSeeOther("Connection was already requested"))
+            raise ImmediateHttpResponse(HttpResponseRedirect("/api/v1/connection/%s/" % con.id))
         
         return super(ConnectionResource, self).obj_create(bundle,
                                                           **kwargs)
