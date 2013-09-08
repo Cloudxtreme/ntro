@@ -6,6 +6,7 @@ angular
             .when("/", {templateUrl: partialsUrl + "home.html", controller: "MakeConnectionCtrl"})
             .when("/connection/pitch/:twitterHandle", {templateUrl: partialsUrl + "writePitch.html", controller: "WritePitchCtrl"})
             .when("/connections", {templateUrl: partialsUrl + "connections.html", controller: "ConnectionsCtrl"})
+            .when("/profile", {templateUrl: partialsUrl + "profile.html", controller: "ProfileCtrl"})
             .otherwise({redirectTo: "/"});
     })
     .controller("MakeConnectionCtrl", function ($scope) {
@@ -94,5 +95,9 @@ angular
     })
     .controller("ConnectionsCtrl", function ($scope, Restangular) {
         $scope.queryString = null;
+        $scope.connections = Restangular.all("connection").getList();
+    })
+    .controller("ProfileCtrl", function($scope, Restangular) {
+        $scope.user = Restangular.one("user", pimp.user.username);
         $scope.connections = Restangular.all("connection").getList();
     });
