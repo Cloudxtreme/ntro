@@ -1,21 +1,19 @@
-- ui
-- screens for
--- make connection
--- pitch
--- list of open connections
--- my connections
+* Ntro
+** UI Screens
+*** make connection
+*** pitch
+*** list of open connections
+*** my connections
+** Frontend
+*** make connection
+**** twitter info update
+**** price update
+*** create connection entity server
+*** open connections screen
+*** my connections screen
 
-
-- frontend
--- make connection
---- twitter info update
---- price update
--- create connection entity server
--- open connections screen
--- my connections screen
-
-- backend
--- get twitter info service
--- get price service
--- list of connections that are open
--- list of connections from current user
+** Backend
+*** get twitter info service
+*** get price service
+*** list of connections that are open
+*** list of connections from current user
