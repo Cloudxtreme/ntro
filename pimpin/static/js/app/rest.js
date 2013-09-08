@@ -5,7 +5,8 @@ angular
         RestangularProvider.setRequestSuffix("/");
         if (pimp.user) {
             RestangularProvider.setDefaultRequestParams({
-                api_key: pimp.user.api_key
+                api_key: pimp.user.api_key,
+                api_user: pimp.user.username
             });
         }
 
