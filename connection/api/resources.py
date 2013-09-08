@@ -13,6 +13,7 @@ from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.resources import ALL
 
 from connection.models import Connection, Person
+from pimpin.utils import get_twitter_user
 
 import twitter
 
@@ -78,6 +79,14 @@ class UserResource(ModelResource):
         return [
             url(r"^(?P<resource_name>%s)/(?P<username>[\w\d_.-]+)/$" % self._meta.resource_name, self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
         ]
+        
+    def dehydrate(self, bundle):
+        twitter_user = get_twitter_user(bundle.data['username'])
+        if twitter_user is not None:
+            bundle.data['mugshot'] = twitter_user.profile_image_url.replace('_normal', '')
+        else:
+            bundle.data['mugshot'] = None
+        return bundle
 
 #
 # Connection
