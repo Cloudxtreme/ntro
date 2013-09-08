@@ -1,63 +1,65 @@
 <div class="hero-unit">
     <div class="container">
-      <div class="demo-headline">
-        <div class="profile-avatar">
-          <img ng-src="{{ user.mugshot }}" />
+        <div class="demo-headline">
+            <div class="profile-avatar">
+                <img ng-src="{{ user.mugshot }}"/>
+            </div>
+            <div class="profile-name">
+                <h1>
+                    {{ user.first_name }} {{ user.last_name }}
+                </h1>
+            </div>
+            <div class="profile-accounts">
+                <ul>
+                    <li><a href="#"><img src="/static/images/icons/linkedin.png"/></a></li>
+                    <li><a href="#"><img src="/static/images/icons/twitter.png"/></a></li>
+                    <li><a href="#"><img src="/static/images/icons/facebook.png"/></a></li>
+                    <li><a href="#"><img src="/static/images/icons/github.png"/></a></li>
+                </ul>
+            </div>
         </div>
-        <div class="profile-name">
-          <h1>
-              {{ user.first_name }} {{ user.last_name }}
-          </h1>
-        </div>
-        <div class="profile-bio">
-          <p>
-              {{ user.bio }}                                                     e
-          </p>
-        </div>
-         <div class="profile-accounts">
-          <ul>
-            <li><a href="#"><img src="/static/images/icons/linkedin.png" /></a></li>
-            <li><a href="#"><img src="/static/images/icons/twitter.png" /></a></li>
-            <li><a href="#"><img src="/static/images/icons/facebook.png" /></a></li>
-            <li><a href="#"><img src="/static/images/icons/github.png" /></a></li>
-          </ul>
-        </div>
-      </div> <!-- /demo-headline -->
+        <!-- /demo-headline -->
     </div>
-</div> 
+</div>
 <div class="container activity">
-  <h2>Activity</h2>
-  <div class="intro row" ng-repeat="connection in myConnections">
-    <div class="intro-requester span2">
-      <img ng-src="{{ connection.requested_by.mugshot }}"/>
-      <div class="intro-name">{{ connection.requested_by.first_name }} <br /> {{ connection.requested_by.last_name }}</div>
-    </div>
-    <div class="intro-target span2  ">
-      <img ng-src="{{ connection.person.mugshot }}" />
-      <div class="intro-name">{{ connection.person.first_name }} <br /> {{ connection.person.last_name }}</div>
-    </div>
-    <div class="intro-pitch span8">
-      <div class="intro-title">
-        <h2>{{ connection.title }}</h2>
-      </div>
-      <div class="intro-content">
-        <p>{{ connection.pitch }}</p>
-      </div>
-      <div class="intro-attach">
-        <div class="input-prepend">
-          <span class="add-on"><img src="/static/images/icons/attach.png" /></span>
-          <span class="span7 uneditable-input" id="prependedInput" type="text">{{ connection.website }}</span>
+    <h2>Activity</h2>
+
+    <div class="intro row" ng-repeat="connection in myConnections">
+        <div class="intro-requester span2">
+            <img ng-src="{{ connection.requested_by.mugshot }}"/>
+
+            <div class="intro-name">{{ connection.requested_by.first_name }} <br/> {{ connection.requested_by.last_name
+                }}
+            </div>
         </div>
-      </div>
-      <div class="intro-meta">Posted 3 days ago</div>
-      
+        <div class="intro-target span2  ">
+            <img ng-src="{{ connection.person.mugshot }}"/>
+
+            <div class="intro-name">{{ connection.person.first_name }} <br/> {{ connection.person.last_name }}</div>
+        </div>
+        <div class="intro-pitch span8">
+            <div class="intro-title">
+                <h2>{{ connection.title }}</h2>
+            </div>
+            <div class="intro-content">
+                <p>{{ connection.pitch }}</p>
+            </div>
+            <div class="intro-attach">
+                <div class="input-prepend">
+                    <span class="add-on"><img src="/static/images/icons/attach.png"/></span>
+                    <span class="span7 uneditable-input" id="prependedInput" type="text">{{ connection.website }}</span>
+                </div>
+            </div>
+            <div class="intro-meta">Posted 3 days ago</div>
+
+        </div>
+        <div class="action">
+            <div class="pull-right intro-action">
+                <span class="pull-left"><small>(Price)</small></span>
+                <span class="intro-price pull-left">${{ connection.price }}</span>
+                <span class="pull-right"><a href="#fakelink"
+                                            class="btn btn-large btn-block btn-primary">Pending</a></span>
+            </div>
+        </div>
     </div>
-    <div class="action">      
-      <div class="pull-right intro-action">
-        <span class="pull-left"><small>(Price)</small></span>
-        <span class="intro-price pull-left">${{ connection.price }}</span>
-        <span class="pull-right"><a href="#fakelink" class="btn btn-large btn-block btn-primary">Pending</a></span>
-      </div>
-    </div>
-  </div>
 </div>
