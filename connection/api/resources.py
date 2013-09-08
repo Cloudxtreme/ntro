@@ -44,6 +44,7 @@ class PersonResource(ModelResource):
         excludes = ['id']
         validation = PersonValidation()
         authorization = Authorization()
+        excludes = ['klout_score', 'tweet_score']
 
     def prepend_urls(self):
         return [

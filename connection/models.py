@@ -30,7 +30,11 @@ class Person(models.Model):
 
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
+    
+    klout_score = models.PositiveIntegerField(blank=True, null=True)
+    tweet_score = models.PositiveIntegerField(blank=True, null=True)
     score = models.PositiveIntegerField(blank=True, null=True)
+    
     mugshot = models.ImageField(upload_to=upload_to_mugshot,
                                 null=True,
                                 blank=True)
