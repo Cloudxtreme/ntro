@@ -8,4 +8,4 @@ standing. When someone connects you to that person you have to pay them the
 price defined by our highly tuned algorithms.
 
 > Ntro was created in a single day at the Techcrunch Disrupt Hackaton in San
-> Francisco, the year of 2013.
+> Francisco, the year of 2013. It's creators are the Rockstart batch of 2013.
